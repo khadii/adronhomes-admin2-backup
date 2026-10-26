@@ -7,11 +7,13 @@ import LoadingAnimations from "../../../LoadingAnimations";
 import { resetForm } from "../../../Redux/gift/giftFormSlice";
 import { fetchPromoById } from "../../../Redux/gift/promo/promoSlice";
 import { AppDispatch } from "../../../Redux/store";
+import { useScopedAdminPath } from "../../../../utils/adminScope";
 ;
 
 function PromoFormPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   const dispatch = useDispatch<AppDispatch>();
   const [editingPromo, setEditingPromo] = useState<{
     id: string;
@@ -73,13 +75,13 @@ function PromoFormPage() {
 
   const handleCancel = () => {
     setEditingPromo(null);
-    navigate("/promotions");
+    navigate(scopedPath("/promotions"));
   };
 
   const handleSuccess = () => {
     console.log("Operation successful");
     setEditingPromo(null);
-    navigate(`/promotions${editingPromo ? `/${editingPromo.id}` : ""}`);
+    navigate(scopedPath(`/promotions${editingPromo ? `/${editingPromo.id}` : ""}`));
   };
 
   if (isLoading) {
@@ -98,7 +100,7 @@ function PromoFormPage() {
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
           <p className="text-red-600">{error}</p>
           <button
-            onClick={() => navigate("/promotions")}
+            onClick={() => navigate(scopedPath("/promotions"))}
             className="mt-4 px-4 py-2 bg-[#79B833] text-white rounded-full hover:bg-[#6aa82a]"
           >
             Back to Promotions

@@ -7,10 +7,12 @@ import { AppDispatch, RootState } from "../../Redux/store";
 import { fetchGiftById } from "../../Redux/gift/gift_thunk";
 import { resetForm, setEditingMode } from "../../Redux/gift/giftFormSlice";
 import LoadingAnimations from "../../LoadingAnimations";
+import { useScopedAdminPath } from "../../../utils/adminScope";
 
 function EditGiftFormPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   const dispatch = useDispatch<AppDispatch>();
   const [editingGift, setEditingGift] = useState<{
     id: string;
@@ -82,13 +84,13 @@ function EditGiftFormPage() {
 
   const handleCancel = () => {
     setEditingGift(null);
-    navigate("/gifts");
+    navigate(scopedPath("/gifts"));
   };
 
   const handleSuccess = () => {
     console.log("Operation successful");
     setEditingGift(null);
-    navigate("/gifts");
+    navigate(scopedPath("/gifts"));
   };
 
   if (isLoading) {
@@ -107,7 +109,7 @@ function EditGiftFormPage() {
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
           <p className="text-red-600">{error}</p>
           <button
-            onClick={() => navigate("/gifts")}
+            onClick={() => navigate(scopedPath("/gifts"))}
             className="mt-4 px-4 py-2 bg-[#79B833] text-white rounded-full hover:bg-[#6aa82a]"
           >
             Back to Gifts

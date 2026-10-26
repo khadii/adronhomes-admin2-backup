@@ -22,7 +22,7 @@ const navItems = [
     icon: Icon7,
     path: "/director/Requests-Enquiries",
   },
-  // { label: "Settings", icon: Icon9, path: "/settings" },
+  { label: "Settings", icon: Icon9, path: "/director/settings" },
 ];
 
 export default function DirectorSideBar() {

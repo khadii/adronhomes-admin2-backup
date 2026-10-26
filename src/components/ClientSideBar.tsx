@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../components/Redux/Login/login_slice";
-import { Icon2, Icon3, Icon5, Icon6, Icon7, Icon8 } from "../general/icon";
+import { Icon2, Icon3, Icon5, Icon6, Icon7, Icon8, Icon9 } from "../general/icon";
 
 const navItems = [
   { label: "Customers", icon: Icon2, path: "/client/customers" },
@@ -13,6 +13,7 @@ const navItems = [
     path: "/client/partnership-requests",
   },
   { label: "Contracts", icon: Icon7, path: "/client/contracts" },
+  { label: "Settings", icon: Icon9, path: "/client/settings" },
 ];
 
 export default function ClientSidebar() {

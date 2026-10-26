@@ -12,6 +12,7 @@ import { store, RootState, AppDispatch } from "./components/Redux/store";
 
 // Layout Components
 import AdminSidebar from "./general/sidebar";
+import DaffSidebar from "./general/DaffSidebar";
 import SideBar from "./marketer/sideNav/SideNav";
 import DirectorSideBar from "./marketer/sideNav/DirectorSideNav";
 import CarrerSideBar from "./hr/sideNav";
@@ -32,6 +33,7 @@ import Personnel from "./pages/Personnel/Personnel";
 import RequestsEnquiries from "./pages/Requests_Enquiries/Requests_Enquiries";
 import Notifications from "./components/Notifications/Notifications";
 import Settings from "./components/Settings/Settings";
+import PasswordSettings from "./components/Settings/PasswordSettings";
 import CustomerSinglePage from "./pages/Customers/CustomerSinglePage";
 import CustomersPayment from "./marketer/Payment/customers_payment";
 // import General from "./pages/Properties/General";
@@ -104,6 +106,7 @@ import Estate from "./pages/Estate/Estate";
 import EstateUsers from "./pages/Estate/EstateUsers";
 import SingleUserEstate from "./pages/Estate/SingleUserEstate";
 import EstateOperationsPage from "./pages/Estate/EstateOperationsPage";
+import DaffDashboard from "./pages/Daff/DaffDashboard";
 // import CommunityDashboard from "./CommunityDashboard/CommunityDashboard";
 
 // NotFoundRedirect Component - Handles 404 with toast and redirect
@@ -312,6 +315,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   const isDirectorRoute = location.pathname.startsWith("/director");
   const isPayments = location.pathname.startsWith("/payments/");
   const isLegal = location.pathname.startsWith("/legal");
+  const isDaffRoute = location.pathname.startsWith("/daff");
   const client = location.pathname.startsWith("/client/");
   const shouldShowSidebar =
     location.pathname !== "/" &&
@@ -340,6 +344,8 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             <LegalSideBar />
           ) : isinfotech ? (
             <InfoTechSidebar />
+          ) : isDaffRoute ? (
+            <DaffSidebar />
           ) : (
             <AdminSidebar />
           )}
@@ -424,15 +430,19 @@ const App = () => {
                   path="/promotions/promotion-requests/:id"
                   element={<PromoRequestsTab />}
                 />
-                <Route path="/promotions/:id" element={<PromoPage />} />
                 <Route
                   path="/promotions/edit/:id"
                   element={<PromoFormPage />}
                 />
                 <Route
+                  path="/promotions/create"
+                  element={<CreatePromoFormPage />}
+                />
+                <Route
                   path="/Promotions/create"
                   element={<CreatePromoFormPage />}
                 />
+                <Route path="/promotions/:id" element={<PromoPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/estates" element={<Estate />} />
                 <Route
@@ -576,10 +586,81 @@ const App = () => {
                   element={<DuplicateProperty />}
                 />
 
+                {/* DAFF Routes */}
+                <Route path="/daff" element={<DaffDashboard />} />
+                <Route path="/daff/estates" element={<Estate />} />
+                <Route
+                  path="/daff/estate-maintenance"
+                  element={<EstateOperationsPage mode="maintenance" />}
+                />
+                <Route
+                  path="/daff/estate-security-codes"
+                  element={<EstateOperationsPage mode="security" />}
+                />
+                <Route
+                  path="/daff/estate-utility-payments"
+                  element={<EstateOperationsPage mode="utility" />}
+                />
+                <Route
+                  path="/daff/estates/:estateId/users"
+                  element={<EstateUsers />}
+                />
+                <Route
+                  path="/daff/estates/:estateId/users/:userId"
+                  element={<SingleUserEstate />}
+                />
+                <Route path="/daff/properties" element={<Properties />} />
+                <Route
+                  path="/daff/properties/:id"
+                  element={<PropertyDetailsPage />}
+                />
+                <Route path="/daff/gift-form" element={<GiftFormPage />} />
+                <Route path="/daff/gifts" element={<Gifts />} />
+                <Route path="/daff/gifts/:id" element={<GiftDetail />} />
+                <Route
+                  path="/daff/gifts/edit/:id"
+                  element={<EditGiftFormPage />}
+                />
+                <Route path="/daff/promotions" element={<Promotions />} />
+                <Route
+                  path="/daff/promotions/vendors"
+                  element={<GiftVendorsPage />}
+                />
+                <Route
+                  path="/daff/promotions/vendors/:vendorId"
+                  element={<GiftVendorDetailsPage />}
+                />
+                <Route
+                  path="/daff/promotions/promotion-requests/:id"
+                  element={<PromoRequestsTab />}
+                />
+                <Route
+                  path="/daff/promotions/edit/:id"
+                  element={<PromoFormPage />}
+                />
+                <Route
+                  path="/daff/promotions/create"
+                  element={<CreatePromoFormPage />}
+                />
+                <Route path="/daff/promotions/:id" element={<PromoPage />} />
+                <Route path="/daff/settings" element={<PasswordSettings />} />
+                <Route
+                  path="/daff/settings/reset-password"
+                  element={<ResetCard />}
+                />
+
                 <Route path="/error-500" element={<Error500 />} />
 
                 {/* Marketer Routes */}
                 <Route path="/marketer" element={<MarketersDashboard />} />
+                <Route
+                  path="/marketer/settings"
+                  element={<PasswordSettings />}
+                />
+                <Route
+                  path="/marketer/settings/reset-password"
+                  element={<ResetCard />}
+                />
                 <Route
                   path="/marketer-customer"
                   element={<MarketerCustomer />}
@@ -591,9 +672,25 @@ const App = () => {
 
                 {/* Director Routes */}
                 <Route path="/director" element={<DirectorsDashboard />} />
+                <Route
+                  path="/director/settings"
+                  element={<PasswordSettings />}
+                />
+                <Route
+                  path="/director/settings/reset-password"
+                  element={<ResetCard />}
+                />
 
                 {/* Payment Routes */}
                 <Route path="/payments/dashboard" element={<Dashboard />} />
+                <Route
+                  path="/payments/settings"
+                  element={<PasswordSettings />}
+                />
+                <Route
+                  path="/payments/settings/reset-password"
+                  element={<ResetCard />}
+                />
                 <Route path="/payments/customers" element={<Customers />} />
                 <Route path="/payments/payments" element={<Payment />} />
                 <Route
@@ -635,6 +732,14 @@ const App = () => {
               <Route element={<AuthGuard />}>
                 <Route path="/human-resources" element={<HRDashboard />} />
                 <Route
+                  path="/human-resources/settings"
+                  element={<PasswordSettings />}
+                />
+                <Route
+                  path="/human-resources/settings/reset-password"
+                  element={<ResetCard />}
+                />
+                <Route
                   path="/human-resources/view-job/:jobId"
                   element={<SingleJob />}
                 />
@@ -643,6 +748,14 @@ const App = () => {
               {/* Legal Routes */}
               <Route path="/legal" element={<AuthGuard />}>
                 <Route index element={<Page />} />
+                <Route
+                  path="/legal/settings"
+                  element={<PasswordSettings />}
+                />
+                <Route
+                  path="/legal/settings/reset-password"
+                  element={<ResetCard />}
+                />
                 <Route
                   path="/legal/contracts/details/:user_id/:plan_id"
                   element={<LegalContractInvoice />}
@@ -662,6 +775,14 @@ const App = () => {
                 <Route
                   path="/client/partnership-requests"
                   element={<ClientsPartnership />}
+                />
+                <Route
+                  path="/client/settings"
+                  element={<PasswordSettings />}
+                />
+                <Route
+                  path="/client/settings/reset-password"
+                  element={<ResetCard />}
                 />
                 <Route path="/client/customers" element={<Customers />} />
                 <Route

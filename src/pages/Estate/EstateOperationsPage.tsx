@@ -50,6 +50,7 @@ import {
   SecurityCodesTable,
   UtilityPaymentsTable,
 } from "./EstateOperationsTables";
+import { useScopedAdminPath } from "../../utils/adminScope";
 
 type OperationMode = "maintenance" | "security" | "utility";
 
@@ -84,6 +85,7 @@ const config = {
 export default function EstateOperationsPage({ mode }: EstateOperationsPageProps) {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   const securityExportModalRef = useRef<ExportModalRef>(null);
   const [search, setSearch] = useState("");
 
@@ -271,7 +273,7 @@ export default function EstateOperationsPage({ mode }: EstateOperationsPageProps
 
       <div className="lg:pl-[38px] lg:pr-[68px] pl-[15px] pr-[15px] mb-[24px] flex flex-wrap items-center gap-3">
         <button
-          onClick={() => navigate("/estates")}
+          onClick={() => navigate(scopedPath("/estates"))}
           className="inline-flex h-11 items-center gap-2 rounded-full border border-[#79B833] bg-white px-5 text-sm font-bold text-[#79B833] hover:bg-[#79B833]/10"
         >
           <IoArrowBackSharp className="text-base" />

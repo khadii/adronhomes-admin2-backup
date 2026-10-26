@@ -261,6 +261,10 @@ const roleOptions = [
   { value: "3", label: "Director" },
   { value: "4", label: "Accountant" },
   { value: "5", label: "Hr" },
+  { value: "6", label: "Legal" },
+  { value: "7", label: "Info Tech" },
+  { value: "8", label: "Client service" },
+  { value: "9", label: "DAFF" },
 ];
 
 const getRole = (value:any) => {

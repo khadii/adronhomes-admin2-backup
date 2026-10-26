@@ -16,10 +16,11 @@ import {
 } from "../../general/icon";
 
 const navItems = [
-  { label: "Dashboard", icon: Icon1, path: "payments/dashboard" },
-  { label: "Customers", icon: Icon2, path: "payments/customers" },
-  { label: "Payments", icon: Icon3, path: "payments/payments" },
-  { label: "Contracts", icon: Icon7, path: "payments/contracts" },
+  { label: "Dashboard", icon: Icon1, path: "/payments/dashboard" },
+  { label: "Customers", icon: Icon2, path: "/payments/customers" },
+  { label: "Payments", icon: Icon3, path: "/payments/payments" },
+  { label: "Contracts", icon: Icon7, path: "/payments/contracts" },
+  { label: "Settings", icon: Icon9, path: "/payments/settings" },
 ];
 
 export default function PaymentBar() {
@@ -36,7 +37,7 @@ export default function PaymentBar() {
     // currentPath === path || (path !== "/" && currentPath.startsWith(path));
 
 const isActive = (path: string) => {
-  return currentPath === `/${path}` || currentPath.startsWith(`/${path}/`);
+  return currentPath === path || currentPath.startsWith(`${path}/`);
 };
 
   const dispatch = useDispatch();

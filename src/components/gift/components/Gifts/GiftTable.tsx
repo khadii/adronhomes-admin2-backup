@@ -12,6 +12,7 @@ import {
 } from "../../../Redux/gift/gift_slice";
 import { changeGiftState } from "../../../Redux/gift/gift_thunk";
 import LoadingAnimations from "../../../LoadingAnimations";
+import { useScopedAdminPath } from "../../../../utils/adminScope";
 
 interface GiftTableProps {
   data: GiftData[];
@@ -29,6 +30,7 @@ const GiftTable: React.FC<GiftTableProps> = ({
   onViewDetails 
 }) => {
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   const dispatch = useDispatch<AppDispatch>();
   const pagination = useSelector(selectGiftsPagination);
   const changingState = useSelector(selectGiftsChangingState);
@@ -39,7 +41,7 @@ const GiftTable: React.FC<GiftTableProps> = ({
     if (onViewDetails) {
       onViewDetails(giftId);
     } else {
-      navigate(`/gifts/${giftId}`);
+      navigate(scopedPath(`/gifts/${giftId}`));
     }
   };
 

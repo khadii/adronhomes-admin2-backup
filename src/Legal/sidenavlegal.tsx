@@ -4,11 +4,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../components/Redux/Login/login_slice";
-import { Icon1 } from "../general/icon";
+import { Icon1, Icon9 } from "../general/icon";
 
 
 const navItems = [
-  { label: "Dashboard", icon: Icon1, path: "/legal" }
+  { label: "Dashboard", icon: Icon1, path: "/legal" },
+  { label: "Settings", icon: Icon9, path: "/legal/settings" },
 ];
 
 export default function LegalSideBar() {

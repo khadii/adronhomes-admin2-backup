@@ -28,6 +28,7 @@ import { GiftFormData } from "../Redux/gift/giftFormSlice";
 import { clearGiftSuccess } from "../Redux/gift/gift_slice";
 import { updateGift, createGift } from "../Redux/gift/gift_thunk";
 import { Link } from "react-router-dom";
+import { useScopedAdminPath } from "../../utils/adminScope";
 
 // Gift Type options with measurement units
 const giftTypeOptions = [
@@ -88,6 +89,7 @@ const GiftForm: React.FC<GiftFormProps> = ({
   isEditingcondition = false,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const scopedPath = useScopedAdminPath();
   const formData = useSelector(selectGiftFormData);
   const isEditing = useSelector(selectIsEditing);
   const editingId = useSelector(selectEditingId);
@@ -1043,7 +1045,7 @@ const GiftForm: React.FC<GiftFormProps> = ({
           )}
         </div>
         <Link
-          to={"/gifts"}
+          to={scopedPath("/gifts")}
           className="px-4 py-3 bg-[#79B833] font-medium text-white rounded-full hover:bg-[#6aa82a] transition-colors"
         >
           Go back to Gifts

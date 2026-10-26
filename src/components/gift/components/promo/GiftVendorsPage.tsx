@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Header from "../../../../general/Header";
 import { formatDate } from "../../../../utils/formatdate";
+import { useScopedAdminPath } from "../../../../utils/adminScope";
 import LoadingAnimations from "../../../LoadingAnimations";
 import ConfirmationModal from "../../../Modals/delete";
 import {
@@ -34,6 +35,7 @@ import GiftVendorFormModal from "./GiftVendorFormModal";
 export default function GiftVendorsPage() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   const vendors = useSelector(selectGiftVendors);
   const pagination = useSelector(selectGiftVendorPagination);
   const loading = useSelector(selectGiftVendorsLoading);
@@ -60,7 +62,7 @@ export default function GiftVendorsPage() {
   };
 
   const handleVendorClick = (vendor: GiftVendor) => {
-    navigate(`/promotions/vendors/${vendor.id}`);
+    navigate(scopedPath(`/promotions/vendors/${vendor.id}`));
   };
 
   const handlePageChange = (page: number) => {
@@ -113,7 +115,7 @@ export default function GiftVendorsPage() {
         onButtonClick={() => setShowCreateModal(true)}
         personel
         Personnel_Text="Back to Promotions"
-        onPersonelButtonClick={() => navigate("/promotions")}
+        onPersonelButtonClick={() => navigate(scopedPath("/promotions"))}
       />
 
       <div className="lg:pl-[38px] lg:pr-[68px] pl-[15px] pr-[15px]">

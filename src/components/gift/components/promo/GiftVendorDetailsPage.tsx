@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Header from "../../../../general/Header";
 import { formatDate } from "../../../../utils/formatdate";
+import { useScopedAdminPath } from "../../../../utils/adminScope";
 import LoadingAnimations from "../../../LoadingAnimations";
 import ConfirmationModal from "../../../Modals/delete";
 import {
@@ -45,6 +46,7 @@ const statusClass = (status?: string) => {
 export default function GiftVendorDetailsPage() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   const { vendorId } = useParams<{ vendorId: string }>();
   const vendor = useSelector(selectSelectedGiftVendor);
   const loading = useSelector(selectGiftVendorDetailLoading);
@@ -89,7 +91,7 @@ export default function GiftVendorDetailsPage() {
       const response = await dispatch(deleteGiftVendor(vendor.id)).unwrap();
       toast.success(response.message || "Vendor deleted successfully");
       setShowDeleteModal(false);
-      navigate("/promotions/vendors");
+      navigate(scopedPath("/promotions/vendors"));
     } catch (error: any) {
       toast.error(error || "Failed to delete vendor");
     }
@@ -138,7 +140,7 @@ export default function GiftVendorDetailsPage() {
         title={vendor ? vendor.name : "Vendor Details"}
         subtitle="Pickup vendor profile and assigned gift requests"
         buttonText="Back to Vendors"
-        onButtonClick={() => navigate("/promotions/vendors")}
+        onButtonClick={() => navigate(scopedPath("/promotions/vendors"))}
       />
 
       <div className="lg:pl-[38px] lg:pr-[68px] pl-[15px] pr-[15px]">

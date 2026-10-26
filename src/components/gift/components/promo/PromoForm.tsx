@@ -30,6 +30,7 @@ import { Link } from "react-router-dom";
 import { AppDispatch } from "../../../Redux/store";
 import { createPromo, updatePromo, clearPromoSuccess } from "../../../Redux/gift/promo/promoSlice";
 import InputField from "../../../input/inputtext";
+import { useScopedAdminPath } from "../../../../utils/adminScope";
 
 interface PromoFormProps {
   editingData?: {
@@ -50,6 +51,7 @@ const PromoForm: React.FC<PromoFormProps> = ({
   isEditingcondition = false,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const scopedPath = useScopedAdminPath();
   const formData = useSelector(selectPromoFormData);
   const isEditing = useSelector(selectIsEditing);
   const editingId = useSelector(selectEditingId);
@@ -412,7 +414,7 @@ const PromoForm: React.FC<PromoFormProps> = ({
           )}
         </div>
         <Link
-          to={"/promotions"}
+          to={scopedPath("/promotions")}
           className="px-4 py-3 bg-[#79B833] font-medium text-white rounded-full hover:bg-[#6aa82a] transition-colors"
         >
           Go back to Promotions

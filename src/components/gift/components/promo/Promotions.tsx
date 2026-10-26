@@ -11,11 +11,13 @@ import { resetPromosTable, setPromosSearch } from "../../../Redux/gift/promo/pro
 import { AppDispatch, RootState } from "../../../Redux/store";
 import { ReusableTable } from "../../../Tables/Table_one";
 import PromotionsTableComponent from "./PromotionsTableComponent";
+import { useScopedAdminPath } from "../../../../utils/adminScope";
 
 
 export default function Promotions() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   const { promos, loading, error, pagination, search } = useSelector(
     (state: RootState) => state.promoTable,
   );
@@ -56,7 +58,7 @@ export default function Promotions() {
 //   ];
 
   const handleCreatePromo = () => {
-    navigate("/promotions/create");
+    navigate(scopedPath("/promotions/create"));
   };
 
   return (
@@ -68,7 +70,7 @@ export default function Promotions() {
         onButtonClick={handleCreatePromo}
         personel
         Personnel_Text="Pickup Vendors"
-        onPersonelButtonClick={() => navigate("/promotions/vendors")}
+        onPersonelButtonClick={() => navigate(scopedPath("/promotions/vendors"))}
       />
       
       <div className="grid md:grid-cols-4 gap-[20px] lg:pl-[38px] lg:pr-[68px] pl-[15px] pr-[15px] mb-[30px]">

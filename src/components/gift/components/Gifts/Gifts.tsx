@@ -24,12 +24,14 @@ import {
 import { fetchGifts, deleteGift, changeGiftState,  } from '../../../Redux/gift/gift_thunk';
 import ConfirmationModal from '../../../Modals/delete';
 import { toast } from 'react-toastify';
+import { useScopedAdminPath } from '../../../../utils/adminScope';
 
 const tabs = ["All Gifts", "Active", "Paused"];
 
 export default function Gifts() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   
   // Redux selectors
   const giftsFromRedux = useSelector(selectAllGifts);
@@ -101,8 +103,8 @@ export default function Gifts() {
 
   // Handle edit
   const handleEdit = useCallback((gift: GiftData) => {
-    navigate(`/gifts/edit/${gift.id}`, { state: { gift } });
-  }, [navigate]);
+    navigate(scopedPath(`/gifts/edit/${gift.id}`), { state: { gift } });
+  }, [navigate, scopedPath]);
 
   // Open delete modal
   const handleDeleteClick = useCallback((gift: GiftData) => {
@@ -178,13 +180,13 @@ export default function Gifts() {
 
   // Handle view details
   const handleViewDetails = useCallback((id: number) => {
-    navigate(`/gifts/${id}`);
-  }, [navigate]);
+    navigate(scopedPath(`/gifts/${id}`));
+  }, [navigate, scopedPath]);
 
   // Handle create new
   const handleCreateNew = useCallback(() => {
-    navigate('/gift-form');
-  }, [navigate]);
+    navigate(scopedPath("/gift-form"));
+  }, [navigate, scopedPath]);
 
   // Handle sort
   const handleSort = useCallback((sortOption: SortOption) => {

@@ -10,9 +10,23 @@ export default function Cardone() {
 
   const handleRedirect = () => {
     const path = location.pathname.toLowerCase();
+    const prefixedSettingsRoutes = [
+      "/info-tech",
+      "/marketer",
+      "/director",
+      "/payments",
+      "/human-resources",
+      "/legal",
+      "/client",
+      "/daff",
+    ];
 
-    if (path.startsWith("/info-tech")) {
-      navigate("/info-tech/settings/reset-password");
+    const prefix = prefixedSettingsRoutes.find((route) =>
+      path.startsWith(route),
+    );
+
+    if (prefix) {
+      navigate(`${prefix}/settings/reset-password`);
     } else {
       navigate("/settings/reset-password");
     }

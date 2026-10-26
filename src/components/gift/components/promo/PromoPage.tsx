@@ -31,6 +31,7 @@ import {
 import { AppDispatch } from "../../../Redux/store";
 import Header from "../../../../general/Header";
 import { MatrixCard, MatrixCardGreen } from "../../../firstcard";
+import { useScopedAdminPath } from "../../../../utils/adminScope";
 
 // Helper component for info tooltips
 const InfoTooltip = ({ text }: { text: string }) => (
@@ -89,6 +90,7 @@ interface Promotion {
 export default function PromoSinglePage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   const dispatch = useDispatch<AppDispatch>();
 
   const promoData = useSelector(selectCurrentPromo);
@@ -112,16 +114,16 @@ export default function PromoSinglePage() {
     return null;
   })();
 
-  const handleEdit = () => navigate(`/promotions/edit/${id}`);
+  const handleEdit = () => navigate(scopedPath(`/promotions/edit/${id}`));
   const handleDelete = async () => {
     if (!id) return;
     const result = await dispatch(deletePromo(id));
     if (deletePromo.fulfilled.match(result)) {
-      navigate("/promotions");
+      navigate(scopedPath("/promotions"));
     }
     setDeleteModalOpen(false);
   };
-  const handleBack = () => navigate("/promotions");
+  const handleBack = () => navigate(scopedPath("/promotions"));
 
   // Add toggle status handler
   const handleToggleStatus = async (
@@ -688,9 +690,9 @@ export default function PromoSinglePage() {
                             </button>
 
                             <div
-                              onClick={() =>
-                                navigate(`/properties/${property.id}`)
-                              }
+                            onClick={() =>
+                                navigate(scopedPath(`/properties/${property.id}`))
+                            }
                               className="cursor-pointer"
                             >
                               <div className="h-48 overflow-hidden bg-[#F6F6F8]">
@@ -757,7 +759,7 @@ export default function PromoSinglePage() {
                         properties to start offering these rewards to customers.
                       </p>
                       <button
-                        onClick={() => navigate("/properties")}
+                        onClick={() => navigate(scopedPath("/properties"))}
                         className="px-6 py-3 bg-[#79B833] hover:bg-[#6aa82a] text-white rounded-xl font-medium transition-all inline-flex items-center gap-2"
                       >
                         <FaBuilding /> Link Properties

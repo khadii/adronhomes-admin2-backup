@@ -35,6 +35,8 @@ const getRoleName = (roleId: number): string => {
       return "Info Tech";
     case 8:
       return "Client service";
+    case 9:
+      return "DAFF";
     default:
       return "Unknown";
   }
@@ -49,6 +51,7 @@ const roles: string[] = [
   "Legal",
   "Info Tech",
   "Client service",
+  "DAFF",
 ];
 export default function Personnel() {
   const tabs = ["All"];

@@ -18,6 +18,7 @@ import { AppDispatch } from "../../Redux/store";
 import { AssignPropertyModal } from "./Gifts/AssignPropertyModal";
 import LoadingAnimations from "../../LoadingAnimations";
 import GiftRequestsModal from "./Gifts/GiftRequestsModalComponent";
+import { useScopedAdminPath } from "../../../utils/adminScope";
 
 interface GiftProperty {
   id: number;
@@ -35,6 +36,7 @@ interface GiftProperty {
 const GiftDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   const dispatch = useDispatch<AppDispatch>();
 
   // Redux selectors
@@ -213,7 +215,7 @@ const GiftDetail: React.FC = () => {
             <p className="text-red-600">{error}</p>
           </div>
           <button
-            onClick={() => navigate("/gifts")}
+            onClick={() => navigate(scopedPath("/gifts"))}
             className="mt-4 px-6 py-2 bg-[#79B833] text-white rounded-full hover:bg-[#79B833]/80 transition-colors"
           >
             Back to Gifts
@@ -233,7 +235,7 @@ const GiftDetail: React.FC = () => {
             <p className="text-gray-500 text-lg">Gift not found</p>
           </div>
           <button
-            onClick={() => navigate("/gifts")}
+            onClick={() => navigate(scopedPath("/gifts"))}
             className="mt-6 px-6 py-2 bg-[#79B833] text-white rounded-full hover:bg-[#79B833]/80 transition-colors"
           >
             Back to Gifts
@@ -452,9 +454,9 @@ const GiftDetail: React.FC = () => {
                         <td className="py-4 pl-6 text-sm">
                           <div className="flex space-x-2">
                             <button
-                              onClick={() =>
-                                navigate(`/properties/${property.propertyId}`)
-                              }
+                            onClick={() =>
+                                navigate(scopedPath(`/properties/${property.propertyId}`))
+                            }
                               className="px-4 py-1.5 text-sm bg-[#79B833] text-white rounded-full hover:bg-[#79B833]/80 transition-colors truncate"
                             >
                               View Property
@@ -537,7 +539,7 @@ const GiftDetail: React.FC = () => {
       {/* Back Button */}
       <div className="lg:pl-[38px] lg:pr-[68px] pl-[15px] pr-[15px] mt-6">
         <button
-          onClick={() => navigate("/gifts")}
+          onClick={() => navigate(scopedPath("/gifts"))}
           className="px-6 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
         >
           <svg

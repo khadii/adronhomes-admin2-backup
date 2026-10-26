@@ -5,6 +5,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../../../utils/formatdate";
+import { useScopedAdminPath } from "../../../../utils/adminScope";
 import ConfirmationModal from "../../../Modals/delete";
 import { 
   deletePromo, 
@@ -26,6 +27,7 @@ import Pagination from "../../../Tables/Pagination";
 export default function PromotionsTableComponent() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
   
   // Get data directly from Redux store
   const data = useSelector(selectAllPromos);
@@ -60,17 +62,17 @@ export default function PromotionsTableComponent() {
   };
 
   const goToPromoDetails = (id: number) => {
-    navigate(`/promotions/${id}`);
+    navigate(scopedPath(`/promotions/${id}`));
   };
 
   const handleEditPromo = (e: React.MouseEvent, id: number) => {
     e.stopPropagation();
-    navigate(`/promotions/edit/${id}`);
+    navigate(scopedPath(`/promotions/edit/${id}`));
   };
 
   const handleViewRequests = (e: React.MouseEvent, id: number) => {
     e.stopPropagation();
-    navigate(`/promotions/promotion-requests/${id}`);
+    navigate(scopedPath(`/promotions/promotion-requests/${id}`));
   };
 
   const openDeleteModal = (e: React.MouseEvent, promo: Promo) => {

@@ -6,19 +6,21 @@ import PromoFormPage from "./PromoFormPage";
 import { resetForm } from "../../../Redux/gift/promo/promoFormSlice";
 import { AppDispatch } from "../../../Redux/store";
 import { useDispatch } from "react-redux";
+import { useScopedAdminPath } from "../../../../utils/adminScope";
 
 function CreatePromoFormPage() {
   const navigate = useNavigate();
+  const scopedPath = useScopedAdminPath();
  const dispatch = useDispatch<AppDispatch>();
  
   const handleCancel = () => {
-    navigate("/promotions");
+    navigate(scopedPath("/promotions"));
   };
 
   const handleSuccess = () => {
     console.log("Promotion created successfully");
       dispatch(resetForm());
-    navigate("/promotions");
+    navigate(scopedPath("/promotions"));
   };
 
   return (
